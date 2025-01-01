@@ -1,0 +1,11 @@
+{
+  "routes": [
+    "/home",
+    "/home/articles",
+    "/home/create",
+    "/home/dashboard",
+    "/login",
+    "/register",
+    "/test"
+  ]
+}
