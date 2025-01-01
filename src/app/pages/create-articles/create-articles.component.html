@@ -1,0 +1,69 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<app-toaster></app-toaster>
+<div class="flex justify-center items-center h-screen ">
+    <mat-card class="example-card">
+      <mat-card-header class="flex justify-center mb-2">
+        <mat-card-title>Upload Article</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+          <mat-form-field class="w-full">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+            <mat-error *ngIf="articleForm.get('title')?.hasError('required')">
+              Title is required.
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field class="w-full">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description" />
+            <mat-error *ngIf="articleForm.get('description')?.hasError('required')">
+              Description is required.
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field class="w-full">
+            <mat-label>Content</mat-label>
+            <textarea matInput formControlName="content"></textarea>
+            <mat-error *ngIf="articleForm.get('content')?.hasError('required')">
+              Content is required.
+            </mat-error>
+          </mat-form-field>
+  
+          <div class="file-upload-container">
+            <label for="fileInput" class="mat-label">Thumbnail</label>
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              (change)="onFileSelected($event)"
+              class="custom-file-input"
+            />
+          </div>
+  
+          <div *ngIf="thumbnailPreview" class="preview-container">
+            <img [src]="thumbnailPreview" alt="Thumbnail Preview" class="thumbnail-preview" />
+          </div>
+  
+          <mat-checkbox formControlName="published">Published</mat-checkbox>
+  
+          <div class="flex justify-center mt-4">
+            <button mat-flat-button color="primary" type="submit" [disabled]="articleForm.invalid">
+              Submit Article
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+
+

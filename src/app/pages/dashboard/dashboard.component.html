@@ -1,0 +1,6 @@
+<div class="flex justify-center">
+    <h1>MY Articles</h1>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 ml-4 mb-4">
+    <app-edit-card (dataEmitter)="delete($event)" [content]="article.content" [articleId]="article.id" [description]="article.description" [thumbLink]="article.thumbNailLink" [title]="article.title" *ngFor="let article of articles" class="mt-10"></app-edit-card>
+</div>

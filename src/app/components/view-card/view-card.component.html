@@ -1,0 +1,22 @@
+
+<mat-card class="m-10 shadow-emerald-900">
+    <mat-card-header class="flex justify-center">
+      <mat-card-title>{{data.title}}</mat-card-title>
+    </mat-card-header>
+    <div class="mt-10 mb-10 flex justify-center">
+        <img
+      mat-card-image 
+      [src]="data.thumbNailLink || 'https://placehold.co/600x400'" 
+      alt="Photo of a Shiba Inu">
+    </div>
+    <mat-card-content>
+      <p>{{data.content}}</p>
+    </mat-card-content>
+    <mat-card-content class="flex justify-end mt-7">
+        <mat-card-title>
+            Author: {{ data.user.username }}
+        </mat-card-title>
+    </mat-card-content>
+  </mat-card>
+  
+   

@@ -1,0 +1,45 @@
+<app-toaster></app-toaster>
+<div class="bg-gray-400">
+    <div class="flex justify-center items-center h-screen">
+        <mat-card class=" shadow-emerald-100 w-[450px]" color="primary">
+            <div class="flex justify-center p-4">
+                <h1>Login</h1>
+            </div>
+            <mat-card-content >
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                    <div class="w-full mb-4">
+                        <mat-form-field class="w-full">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="***@gmail.com" formControlName="email" required>
+                            <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required!</mat-error>
+                            <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Enter a valid email address!</mat-error>
+                          </mat-form-field>
+                    </div>
+                    <div class="w-full mb-4">
+                        <mat-form-field>
+                          <mat-label>Password</mat-label>
+                          <input matInput type="password" formControlName="password" required>
+                          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required!</mat-error>
+                          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+                            Password must be at least 6 characters long!
+                          </mat-error>
+                        </mat-form-field>
+                    </div>
+                      <div class="flex justify-center">
+                      <button mat-flat-button color="primary" class="w-full">Register</button>
+                      </div>
+                 </form>
+            </mat-card-content>
+            <div class="flex justify-center p-5">
+                <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                    Don’t have an account yet? <a routerLink="/register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Register</a>
+                </p>
+            </div>
+         </mat-card>
+         
+     </div>
+
+ </div>
+ 
+ 
+ 
