@@ -1,23 +1,23 @@
 <a routerLink="/home/view/{{articleId}}">
-    <mat-card class="example-card bg-emerald-950 min-h-[500px]">
-        <mat-card-header>
-          <mat-card-title>{{title}}</mat-card-title>
-        </mat-card-header>
-        <img 
+  <mat-card class="example-card bg-emerald-950 min-h-[600px]">
+    <mat-card-header>
+      <mat-card-title>{{title}}</mat-card-title>
+    </mat-card-header>
+    <div class="w-full h-64 overflow-hidden">
+      <img 
         mat-card-image 
         [src]="thumbLink || 'https://placehold.co/600x400'" 
-        alt="Photo of a Shiba Inu">
-      
-        <mat-card-content>
-          <p>
-            {{ description | wordlimit:72 }}
-    
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <!-- <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button> -->
-        </mat-card-actions>
-      </mat-card>
+        alt="Photo of a Shiba Inu" 
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <mat-card-content>
+      <p>
+        {{ description | wordlimit:72 }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <!-- Optional buttons -->
+    </mat-card-actions>
+  </mat-card>
 </a>
-  

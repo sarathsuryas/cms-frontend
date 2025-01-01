@@ -1,24 +1,37 @@
 <app-toaster></app-toaster>
-<mat-card class="example-card bg-emerald-950">
-    <mat-card-header>
-        <mat-card-title>{{title}}</mat-card-title>
-    </mat-card-header>
-    <a routerLink="/home/view/{{articleId}}">
-    <img 
-        mat-card-image 
-        [src]="thumbLink || 'https://placehold.co/600x400'" 
-        alt="Photo of a Shiba Inu">
-    </a>
-      
-        <mat-card-content>
-          <p>
-            {{ description | wordlimit:72 }}
-    
-          </p>
-        </mat-card-content>
-        <mat-card-actions class="flex justify-between">
-          <button color="white" (click)="openDialog()" mat-button style="background-color: purple;">Edit</button>
-          <button color="white" (click)="delete()" mat-button style="background-color: red;">Delete</button>
-        </mat-card-actions>
-      </mat-card>
-  
+<mat-card class="example-card bg-emerald-950 min-h-[600px]">
+  <mat-card-header>
+    <mat-card-title>{{ title }}</mat-card-title>
+  </mat-card-header>
+  <a routerLink="/home/view/{{ articleId }}" class="block">
+    <div class="w-full h-64 overflow-hidden">
+      <img
+        mat-card-image
+        [src]="thumbLink || 'https://placehold.co/600x400'"
+        alt="Photo of a Shiba Inu"
+        class="w-full h-full object-cover"
+      />
+    </div>
+  </a>
+  <mat-card-content>
+    <p>
+      {{ description | wordlimit:72 }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="flex justify-between">
+    <button
+      mat-button
+      (click)="openDialog()"
+      class="px-4 py-2 text-white bg-purple-600 hover:bg-purple-700 rounded"
+    >
+      Edit
+    </button>
+    <button
+      mat-button
+      (click)="delete()"
+      class="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded"
+    >
+      Delete
+    </button>
+  </mat-card-actions>
+</mat-card>
