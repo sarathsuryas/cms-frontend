@@ -28,8 +28,6 @@ export class MainComponent {
     { label: 'Dashboard', icon: 'dashboard',route:'dashboard' },
     { label: 'Articles', icon: 'article',route:'articles' },
     { label: 'Add Article', icon: 'add' ,route:'create'},
-    { label: 'Profile', icon: 'person' ,route:'profile'},
-    
   ];
   
   fillerContent = Array.from(
