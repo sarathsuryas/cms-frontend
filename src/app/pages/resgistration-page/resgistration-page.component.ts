@@ -9,16 +9,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ToasterComponent } from '../../components/toaster/toaster.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @Component({
   selector: 'app-registration-page',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatSelectModule,MatButtonModule, FormsModule, ReactiveFormsModule,MatCardModule,CommonModule,RouterModule,ToasterComponent],
+  imports: [MatFormFieldModule, MatInputModule, MatSelectModule,MatButtonModule, FormsModule, ReactiveFormsModule,MatCardModule,CommonModule,RouterModule,ToasterComponent,NgxLoadingModule],
   templateUrl: './resgistration-page.component.html',
   styleUrl: './resgistration-page.component.css'
 })
 export class RegistrationPageComponent {
   @ViewChild(ToasterComponent) toaster!: ToasterComponent;
+  public loading = false
    registerForm!:FormGroup
      constructor(private _authService:AuthService,private _router:Router) {
        this.registerForm = new FormGroup({
@@ -30,15 +32,18 @@ export class RegistrationPageComponent {
      }
      register() {
       if(this.registerForm.valid) {
+        this.loading = true
         this._authService.register(this.registerForm.value).subscribe({
           next:(value)=>{
             if(value.token) {
+              this.loading = false
               localStorage.setItem('userToken',value.token)
               this.toaster.showSuccess("Registration Done")
               this._router.navigate(['home/articles'])
             } 
           },
           error:(err)=>{
+            this.loading = false
             console.error(err)
             this.toaster.showError("user is Exist please login")
           }

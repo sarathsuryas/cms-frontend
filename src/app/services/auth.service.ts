@@ -4,17 +4,17 @@ import { HttpClient } from '@angular/common/http';
 import { RegisterDto } from '../dtos/register.dto';
 import { Observable } from 'rxjs';
 import { LoginDto } from '../dtos/login.dto';
+import { API_URLS } from '../constants/api.constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
- private api = `${environment.api}/auth`
   constructor(private http:HttpClient) { }
   register(dto:RegisterDto):Observable<{token:string}> {
-      return this.http.post<{token:string}>(`${this.api}/register`,dto)
+      return this.http.post<{token:string}>(API_URLS.AUTH.REGISTER,dto)
   }
   login(dto:LoginDto):Observable<{token:string}> {
-      return this.http.post<{token:string}>(`${this.api}/login`,dto)
+      return this.http.post<{token:string}>(API_URLS.AUTH.LOGIN,dto)
   }
 }

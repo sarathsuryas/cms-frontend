@@ -48,13 +48,42 @@ export class CreateArticlesComponent implements OnInit {
   thumbnailPreview: string | ArrayBuffer | null = null;
   articleForm!: FormGroup;
   ngOnInit(): void {
-   
+    // this.articleForm = this.fb.group({
+    //   title: ['', [Validators.required]],
+    //   description: ['', [Validators.required]],
+    //   content: ['', [Validators.required]],
+    //   published: [false],
+    // });
     this.articleForm = this.fb.group({
-      title: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      content: ['', [Validators.required]],
-      published: [false],
+      title: [
+        '', 
+        [
+          Validators.required,
+          Validators.minLength(3), // Minimum 3 characters for a valid title
+          Validators.maxLength(100), // Maximum 100 characters
+          Validators.pattern(/^\S+(?: \S+)*$/) // Disallow leading/trailing whitespace
+        ]
+      ],
+      description: [
+        '', 
+        [
+          Validators.required,
+          Validators.minLength(10), // Minimum 10 characters
+          Validators.maxLength(300), // Maximum 300 characters
+          Validators.pattern(/^\S+(?: \S+)*$/) // Disallow leading/trailing whitespace
+        ]
+      ],
+      content: [
+        '', 
+        [
+          Validators.required,
+          Validators.minLength(50), // Minimum 50 characters
+          Validators.pattern(/^\S+(?: \S+)*$/) // Disallow leading/trailing whitespace
+        ]
+      ],
+      published: [false]
     });
+
   }
 
   onFileSelected(event: Event): void {
@@ -79,6 +108,7 @@ export class CreateArticlesComponent implements OnInit {
            
         },
         error:(err)=>{
+          this.spinner.hide()
           console.error(err)
         }
       })

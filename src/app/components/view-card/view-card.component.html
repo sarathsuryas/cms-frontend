@@ -1,22 +1,28 @@
+<mat-card class="m-10 shadow-lg rounded-lg bg-emerald-950 text-white">
+  <mat-card-header class="flex justify-center">
+    <mat-card-title class="text-xl font-bold text-center">
+      {{ data.title }}
+    </mat-card-title>
+  </mat-card-header>
 
-<mat-card class="m-10 shadow-emerald-900">
-    <mat-card-header class="flex justify-center">
-      <mat-card-title>{{data.title}}</mat-card-title>
-    </mat-card-header>
-    <div class="mt-10 mb-10 flex justify-center">
-        <img
-      mat-card-image 
-      [src]="data.thumbNailLink || 'https://placehold.co/600x400'" 
-      alt="Photo of a Shiba Inu">
-    </div>
-    <mat-card-content>
-      <p>{{data.content}}</p>
-    </mat-card-content>
-    <mat-card-content class="flex justify-end mt-7">
-        <mat-card-title>
-            Author: {{ data.user.username }}
-        </mat-card-title>
-    </mat-card-content>
-  </mat-card>
-  
-   
+  <div class="mt-10 mb-10 flex justify-center">
+    <img
+      mat-card-image
+      [src]="data.thumbNailLink || 'https://placehold.co/600x400'"
+      [alt]="'Image for ' + data.title"
+      class="rounded-lg shadow-md max-w-full max-h-80 object-cover"
+    />
+  </div>
+
+  <mat-card-content class="p-5">
+    <p class="text-black">
+      {{ data.content }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-content class="flex justify-end mt-7 text-sm text-gray-900">
+    <mat-card-title>
+      Author: <span class="font-medium text-black">{{ data.user.username }}</span>
+    </mat-card-title>
+  </mat-card-content>
+</mat-card>

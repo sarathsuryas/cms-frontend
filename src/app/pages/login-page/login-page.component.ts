@@ -9,16 +9,19 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ToasterComponent } from '../../components/toaster/toaster.component';
 import { AuthService } from '../../services/auth.service';
+import { NgxLoadingModule } from 'ngx-loading';
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatSelectModule,MatButtonModule, FormsModule, ReactiveFormsModule,MatCardModule,CommonModule,RouterModule,ToasterComponent],
+  imports: [MatFormFieldModule, MatInputModule, MatSelectModule,MatButtonModule, FormsModule, ReactiveFormsModule,MatCardModule,CommonModule,RouterModule,ToasterComponent,    NgxLoadingModule],
  
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
 export class LoginPageComponent implements OnInit{
   loginForm!:FormGroup
+  public loading = false;
+
     @ViewChild(ToasterComponent) toaster!: ToasterComponent;
   
   constructor(private _authService:AuthService,private _router:Router) {
@@ -38,13 +41,18 @@ export class LoginPageComponent implements OnInit{
   }
   login() {
     if(this.loginForm.valid) {
+      this.loading = true
       this._authService.login(this.loginForm.value).subscribe({
         next:(value)=>{
+          this.loading = true
+
           localStorage.setItem('userToken',value.token)
           console.log(value)
            this._router.navigate(['home/articles'])
         },
         error:(err)=>{
+          this.loading = false;
+
            this.toaster.showError("User not exist please register")
            console.log(err)
         }

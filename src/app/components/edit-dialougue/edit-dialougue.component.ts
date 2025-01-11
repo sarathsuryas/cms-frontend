@@ -24,20 +24,67 @@ import { ArticleService } from '../../services/article.service';
 })
 export class EditDialougueComponent {
 
+  constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<EditDialougueComponent>,
+   @Inject(MAT_DIALOG_DATA) public data: any) {
+     console.log(data.thumbNailLink)
+   }
    articleForm!: FormGroup;
-   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<EditDialougueComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-      
-    }
+   imagePreview: string | null = this.data.thumbNailLink
+   file!:File
      ngOnInit(): void {
-       this.articleForm = this.fb.group({
-         title: [this.data.title, [Validators.required]],
-         description: [this.data.description, [Validators.required]],
-         content: [this.data.content, [Validators.required]],
-       });
+      this.articleForm = this.fb.group({
+        title: [
+          this.data.title, 
+          [
+            Validators.required,
+            Validators.minLength(3), // Minimum 3 characters for a valid title
+            Validators.maxLength(100), // Maximum 100 characters
+            Validators.pattern(/^\S+(?: \S+)*$/) // Disallow leading/trailing whitespace
+          ]
+        ],
+        description: [
+          this.data.description, 
+          [
+            Validators.required,
+            Validators.minLength(10), // Minimum 10 characters
+            Validators.maxLength(300), // Maximum 300 characters
+            Validators.pattern(/^\S+(?: \S+)*$/) // Disallow leading/trailing whitespace
+          ]
+        ],
+        content: [
+          this.data.content, 
+          [
+            Validators.required,
+            Validators.minLength(50), // Minimum 50 characters
+            Validators.pattern(/^\S+(?: \S+)*$/) // Disallow leading/trailing whitespace
+          ]
+        ],
+      });
+      
      }
+
+     onFileChange(event: Event): void {
+      const file = (event.target as HTMLInputElement)?.files?.[0];
+      if (file) {
+        this.file = file
+        this.articleForm.patchValue({ image: file });
+        this.articleForm.get('image')?.updateValueAndValidity();
+  
+        // Create a preview
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imagePreview = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+
      onSubmit() {
-      this.dialogRef.close({title:this.articleForm.controls['title'].value,description:this.articleForm.controls['description'].value,content:this.articleForm.controls['content'].value});
+      if(this.articleForm.valid) {
+        this.dialogRef.close({title:this.articleForm.controls['title'].value,description:this.articleForm.controls['description'].value,content:this.articleForm.controls['content'].value,thumbNail:this.file});
+      
+      }
       
      }  
 }

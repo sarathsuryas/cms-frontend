@@ -5,20 +5,32 @@
         <h1 class="example-app-name" color="primary">Article Hub</h1>
       </mat-toolbar>
   
-      <mat-sidenav-container class="example-sidenav-container "
+      <mat-sidenav-container class="example-sidenav-container"
                             [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                     [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-                    <mat-nav-list>
-                      <a  *ngFor="let nav of fillerNav" mat-list-item [routerLink]="nav.route">
-                        <mat-icon mat-list-icon>{{ nav.icon }}</mat-icon>
-                        <span mat-line>{{ nav.label }}</span>
+                    <mat-nav-list class="w-full bg-gray-100 p-4 rounded-md shadow-md">
+                      <!-- Navigation Links -->
+                      <a 
+                        *ngFor="let nav of fillerNav" 
+                        mat-list-item 
+                        [routerLink]="nav.route" 
+                        class="flex items-center space-x-4 py-2 px-3 rounded hover:bg-gray-200 transition-colors"
+                      >
+                        <mat-icon mat-list-icon class="text-blue-500">{{ nav.icon }}</mat-icon>
+                        <span mat-line class="text-gray-700 font-medium">{{ nav.label }}</span>
                       </a>
-                        <a (click)="logout()">
-                          <mat-icon mat-list-icon>logout</mat-icon>
-                        <span mat-line>Logout</span> 
-                        </a>
+                    
+                      <!-- Logout Button -->
+                      <a 
+                        (click)="logout()" 
+                        class="flex items-center space-x-4 py-2 px-3 rounded hover:bg-gray-200 transition-colors cursor-pointer"
+                      >
+                        <mat-icon mat-list-icon class="text-red-500">logout</mat-icon>
+                        <span mat-line class="text-gray-700 font-medium">Logout</span> 
+                      </a>
                     </mat-nav-list>
+                    
                     
         </mat-sidenav>
   

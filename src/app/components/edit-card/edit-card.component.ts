@@ -8,11 +8,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditDialougueComponent } from '../edit-dialougue/edit-dialougue.component';
 import { ArticleService } from '../../services/article.service';
 import { ToasterComponent } from '../toaster/toaster.component';
+import { NgxLoadingComponent, NgxLoadingModule } from 'ngx-loading';
 
 @Component({
   selector: 'app-edit-card',
   standalone: true,
-  imports: [CommonModule,MatCardModule, MatButtonModule, WordlimitPipe,RouterModule,ToasterComponent],
+  imports: [CommonModule,MatCardModule, MatButtonModule, WordlimitPipe,RouterModule,ToasterComponent,NgxLoadingModule],
   templateUrl: './edit-card.component.html',
   styleUrl: './edit-card.component.css'
 })
@@ -26,8 +27,11 @@ export class EditCardComponent {
 @Output() dataEmitter = new EventEmitter<number>();
 
 
-constructor(public dialog: MatDialog,private _articleService:ArticleService) {}
 
+constructor(public dialog: MatDialog,private _articleService:ArticleService) {
+  
+}
+public loading = false
 openDialog() {
   
   const dialogRef = this.dialog.open(EditDialougueComponent,{
@@ -35,22 +39,29 @@ openDialog() {
      title:this.title,
      description:this.description,
      content:this.content,
-     articleId:this.articleId
+     articleId:this.articleId,
+     thumbNailLink:this.thumbLink
     }
   });
 
   dialogRef.afterClosed().subscribe(result => {
-   this._articleService.editArticle(this.articleId,result).subscribe({
-        next:(value)=>{
-          this.title = value.title
-          this.description = value.description
-           this.toaster.showSuccess("success")
-        },
-        error:(err)=>{
-          this.toaster.showError(err)
-          console.error(err)
-        }
-      })
+    if(result) {
+      this.loading = true
+     this._articleService.editArticle(this.articleId,result).subscribe({
+          next:(value)=>{
+            this.loading = false
+            this.title = value.title
+            this.description = value.description
+            this.thumbLink = value.thumbNailLink
+             this.toaster.showSuccess("success")
+          },
+          error:(err)=>{
+            this.loading = false
+            this.toaster.showError(err)
+            console.error(err)
+          }
+        })
+    }
 
 })
 }

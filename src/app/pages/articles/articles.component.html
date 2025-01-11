@@ -1,6 +1,24 @@
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 ml-4 mb-4">
-        <app-article-card class="max-w-[500px]" [articleId]="article.id" [description]="article.description" [thumbLink]="article.thumbNailLink" [title]="article.title" *ngFor="let article of articles"></app-article-card>
+<div *ngIf="loading" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <ngx-loading
+          [show]="loading"
+          [config]="{ backdropBorderRadius: '3px' }"
+        ></ngx-loading>
+ </div>
+      
+ <div 
+    class="grid grid-cols-1 md:grid-cols-3 gap-8 ml-4 mb-4 mr-6 overflow-auto h-[calc(100vh-100px)]"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollUpDistance]="1.5"
+    [infiniteScrollThrottle]="300"
+    (scrolled)="onScroll()"
+    [scrollWindow]="false">
+    <app-article-card 
+        class="max-w-[450px]" 
+        [articleId]="article.id" 
+        [description]="article.description" 
+        [thumbLink]="article.thumbNailLink" 
+        [title]="article.title" 
+        *ngFor="let article of articles">
+    </app-article-card>
 </div>
-
-  
-   

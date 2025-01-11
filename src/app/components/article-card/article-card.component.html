@@ -1,23 +1,32 @@
-<a routerLink="/home/view/{{articleId}}">
-  <mat-card class="example-card bg-emerald-950 min-h-[600px]">
+<a 
+  routerLink="/home/view/{{articleId}}" 
+  [attr.aria-label]="'View article ' + title" 
+  class="block group focus:outline-none focus:ring focus:ring-red-500"
+>
+  <mat-card class="example-card bg-emerald-950 min-h-[600px] transition-transform duration-300 hover:scale-105 hover:shadow-lg">
     <mat-card-header>
-      <mat-card-title>{{title}}</mat-card-title>
+      <mat-card-title class="text-black group-hover:text-blue-400 transition-colors">
+        {{ title }}
+      </mat-card-title>
     </mat-card-header>
+
     <div class="w-full h-64 overflow-hidden">
       <img 
         mat-card-image 
         [src]="thumbLink || 'https://placehold.co/600x400'" 
-        alt="Photo of a Shiba Inu" 
-        class="w-full h-full object-cover"
+        [attr.alt]="title" 
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
       />
     </div>
+
     <mat-card-content>
-      <p>
+      <p class="text-black group-hover:text-black transition-colors">
         {{ description | wordlimit:72 }}
       </p>
     </mat-card-content>
+
     <mat-card-actions>
-      <!-- Optional buttons -->
+      <!-- Optional action buttons can go here -->
     </mat-card-actions>
   </mat-card>
 </a>
